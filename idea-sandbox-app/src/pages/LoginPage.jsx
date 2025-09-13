@@ -13,15 +13,21 @@ export default function LoginPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setError(''); // Clear previous errors
-    const result = login(email, password); // Pass password to login function
+    setError('');
+    const result = login(email, password);
     if (result.success) {
-      navigate('/');
+      // --- NEW REDIRECT LOGIC ---
+      // Check the user's role from the login result
+      if (result.user.role === 'admin') {
+        navigate('/admin'); // Redirect admins to the admin dashboard
+      } else {
+        navigate('/'); // Redirect regular users to the homepage
+      }
     } else {
-      setError(result.message); // Set the error message if login fails
+      setError(result.message);
     }
   };
-
+  
   return (
     <>
       <Header />

@@ -23,7 +23,11 @@ export function AuthProvider({ children }) {
     }
 
     const uniqueId = 'user_' + email.split('@')[0].replace(/\./g, '_');
-    const newUser = { id: uniqueId, name, email, password, role: 'user' };
+    
+    // Check if the email is the special admin email and assign role accordingly.
+    const role = email.toLowerCase() === 'admin@example.com' ? 'admin' : 'user';
+
+    const newUser = { id: uniqueId, name, email, password, role: role };
 
     users.push(newUser);
     localStorage.setItem('idea-sandbox-users', JSON.stringify(users));
@@ -51,7 +55,7 @@ export function AuthProvider({ children }) {
     localStorage.setItem('idea-sandbox-user', JSON.stringify(foundUser));
     setUser(foundUser);
     console.log("AuthContext: Logged in user:", foundUser);
-    return { success: true };
+    return { success: true, user: foundUser }; // Return the user object
   };
 
   const logout = () => {
@@ -60,7 +64,24 @@ export function AuthProvider({ children }) {
     setUser(null);
   };
 
-  const value = { user, login, logout, signup };
+  const deleteUser = (userIdToDelete) => {
+    let users = getUserDatabase();
+    users = users.filter(u => u.id !== userIdToDelete);
+    localStorage.setItem('idea-sandbox-users', JSON.stringify(users));
+
+    // Also delete their ideas from the mock server
+    fetch(`http://localhost:5000/ideas?userId=${userIdToDelete}`)
+      .then(res => res.json())
+      .then(ideas => {
+        ideas.forEach(idea => {
+          fetch(`http://localhost:5000/ideas/${idea.id}`, { method: 'DELETE' });
+        });
+      });
+    
+    console.log("AuthContext: Deleted user:", userIdToDelete);
+  };
+
+  const value = { user, login, logout, signup, deleteUser };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

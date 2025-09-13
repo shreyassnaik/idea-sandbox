@@ -22,7 +22,7 @@
   --bg-dark-primary: #0f1626;
   --bg-dark-secondary: #1c2431;
   --bg-light: #f8f9fa;
-  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-bg: rgba(15, 22, 38, 0.25);   /* A 25% opaque version of your dark background */
   --glass-border: rgba(255, 255, 255, 0.1);
   --font-heading: "Poppins", sans-serif;
   --font-body: "Roboto", sans-serif;
@@ -1167,4 +1167,201 @@ body {
 .dropdown-logout:hover {
   background-color: rgba(224, 0, 47, 0.2);
   color: #ff5252;
+}
+
+/* --- New Admin Page Styles --- */
+.admin-table-container {
+  background: var(--bg-dark-secondary);
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  padding: 20px;
+  overflow-x: auto; /* For responsiveness on small screens */
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--text-light);
+}
+
+.admin-table th, .admin-table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.admin-table th {
+  font-family: var(--font-heading);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+
+.admin-table tbody tr:hover {
+  background-color: var(--glass-bg);
+}
+
+/* Status Badges */
+.status-badge {
+  padding: 5px 10px;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.status-submitted {
+  background-color: rgba(140, 153, 247, 0.2); /* secondary color transparent */
+  color: var(--secondary-color);
+}
+.status-under.review { /* Handles "Under Review" */
+  background-color: rgba(255, 165, 0, 0.2); /* Orange transparent */
+  color: orange;
+}
+.status-accepted {
+  background-color: rgba(80, 227, 194, 0.2); /* primary color transparent */
+  color: var(--primary-color);
+}
+.status-declined {
+  background-color: rgba(224, 0, 47, 0.2); /* red transparent */
+  color: #ff5252;
+}
+
+/* Status Select Dropdown */
+.status-select {
+  background-color: var(--bg-dark-primary);
+  color: var(--text-light);
+  border: 1px solid var(--glass-border);
+  border-radius: 5px;
+  padding: 8px;
+  cursor: pointer;
+}
+
+/* --- New Admin Layout Styles --- */
+.admin-layout {
+  display: flex;
+  height: 100vh;
+  color: var(--text-light);
+}
+
+.admin-sidebar {
+  width: 250px;
+  background-color: var(--bg-dark-secondary);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--glass-border);
+}
+
+.sidebar-header {
+  margin-bottom: 40px;
+}
+.sidebar-header a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.sidebar-logo {
+  height: 30px;
+}
+.sidebar-title {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  color: var(--text-light);
+}
+
+.admin-nav ul {
+  list-style: none;
+}
+.admin-nav a {
+  display: block;
+  padding: 12px 15px;
+  color: var(--text-muted);
+  text-decoration: none;
+  border-radius: 5px;
+  transition: all 0.2s ease;
+}
+.admin-nav a:hover {
+  background-color: var(--glass-bg);
+  color: var(--text-light);
+}
+.admin-nav a.active {
+  background-color: var(--primary-color);
+  color: var(--bg-dark-primary);
+  font-weight: 500;
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.sidebar-link, .sidebar-logout {
+  background: none;
+  border: 1px solid var(--glass-border);
+  color: var(--text-muted);
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+}
+.sidebar-logout:hover, .sidebar-link:hover {
+  background-color: var(--glass-bg);
+  color: var(--text-light);
+}
+
+.admin-main-content {
+  flex-grow: 1;
+  padding: 40px;
+  overflow-y: auto;
+}
+
+.admin-page-title {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+}
+
+/* Dashboard Stat Cards */
+.dashboard-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+.stat-card {
+  background: var(--bg-dark-secondary);
+  padding: 30px;
+  border-radius: 10px;
+  border: 1px solid var(--glass-border);
+}
+.stat-card-title {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+.stat-card-value {
+  font-size: 3rem;
+  font-family: var(--font-heading);
+  color: var(--primary-color);
+}
+
+/* User Management Styles */
+.status-admin {
+  background-color: rgba(80, 227, 194, 0.2);
+  color: var(--primary-color);
+}
+.status-user {
+  background-color: rgba(140, 153, 247, 0.2);
+  color: var(--secondary-color);
+}
+
+.btn-delete-user {
+  background: none;
+  border: 1px solid #e0002f;
+  color: #e0002f;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
 }
