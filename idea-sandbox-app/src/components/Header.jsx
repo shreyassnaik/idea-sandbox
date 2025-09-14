@@ -14,7 +14,6 @@ export default function Header() {
     }
   };
 
-  // Effect to close dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(event) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -42,39 +41,46 @@ export default function Header() {
             <li><a href="/#how-it-works">How It Works</a></li>
 
             {user ? (
-              // --- Logged-in User View ---
-              <>
-                <li className="profile-dropdown" ref={dropdownRef}>
-                  <button onClick={() => setDropdownOpen(!dropdownOpen)} className="profile-btn">
-                    {user.name}
-                    <span className={`arrow ${dropdownOpen ? 'up' : 'down'}`}></span>
-                  </button>
-                  {dropdownOpen && (
-                    <ul className="dropdown-menu">
-                      {/* --- THIS LINK IS ONLY FOR ADMINS --- */}
-                      {user.role === 'admin' && (
-                        <li><Link to="/admin" onClick={() => setDropdownOpen(false)}>Admin Panel</Link></li>
-                      )}
-                      <li><Link to="/profile" onClick={() => setDropdownOpen(false)}>My Profile</Link></li>
-                      
-                      {/* --- THIS LINK IS NOW HIDDEN FOR ADMINS --- */}
-                      {user.role !== 'admin' && (
+              user.role === 'admin' ? (
+                // --- ADMIN VIEW ---
+                <>
+                  <li><Link to="/admin" className="nav-dashboard-btn">Admin Panel</Link></li>
+                  <li className="profile-dropdown" ref={dropdownRef}>
+                    <button onClick={() => setDropdownOpen(!dropdownOpen)} className="profile-btn">
+                      {user.name}
+                      <span className={`arrow ${dropdownOpen ? 'up' : 'down'}`}></span>
+                    </button>
+                    {dropdownOpen && (
+                      <ul className="dropdown-menu">
+                        {/* Simplified for admin */}
+                        <li><button onClick={logout} className="dropdown-logout">Log Out</button></li>
+                      </ul>
+                    )}
+                  </li>
+                </>
+              ) : (
+                // --- REGULAR USER VIEW ---
+                <>
+                  <li><Link to="/dashboard" className="nav-dashboard-btn">Dashboard</Link></li>
+                  <li className="profile-dropdown" ref={dropdownRef}>
+                    <button onClick={() => setDropdownOpen(!dropdownOpen)} className="profile-btn">
+                      {user.name}
+                      <span className={`arrow ${dropdownOpen ? 'up' : 'down'}`}></span>
+                    </button>
+                    {dropdownOpen && (
+                      <ul className="dropdown-menu">
+                        <li><Link to="/profile" onClick={() => setDropdownOpen(false)}>My Profile</Link></li>
                         <li><Link to="/history" onClick={() => setDropdownOpen(false)}>My Ideas</Link></li>
-                      )}
-
-                      <li><hr/></li>
-                      <li><button onClick={logout} className="dropdown-logout">Log Out</button></li>
-                    </ul>
-                  )}
-                </li>
-                
-                {/* --- THIS BUTTON IS NOW HIDDEN FOR ADMINS --- */}
-                {user.role !== 'admin' && (
+                        <li><hr/></li>
+                        <li><button onClick={logout} className="dropdown-logout">Log Out</button></li>
+                      </ul>
+                    )}
+                  </li>
                   <li><Link to="/submit" className="nav-cta">Submit Idea</Link></li>
-                )}
-              </>
+                </>
+              )
             ) : (
-              // --- Links for Logged-out Users ---
+              // --- Logged-out Users View ---
               <>
                 <li><Link to="/login" className="nav-auth-btn">Log In</Link></li>
                 <li><Link to="/signup" className="nav-auth-btn">Sign Up</Link></li>

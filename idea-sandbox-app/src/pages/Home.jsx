@@ -1,12 +1,27 @@
 import React from 'react';
-import { useAuth } from '../context/AuthContext';
-import StaticHomePage from './StaticHomePage';
-import UserDashboard from './UserDashboard';
+import Header from '../components/Header';
+import Hero from '../components/Hero';
+import Features from '../components/Features';
+import Steps from '../components/Steps';
+import Testimonials from '../components/Testimonials';
+import CTA from '../components/CTA';
+import Footer from '../components/Footer';
+import useScrollAnimations from '../hooks/useScrollAnimations';
 
 export default function Home() {
-  const { user } = useAuth();
+  useScrollAnimations();
 
-  // If a user is logged in, show the dashboard.
-  // Otherwise, show the static landing page.
-  return user ? <UserDashboard /> : <StaticHomePage />;
+  return (
+    <>
+      <Header />
+      <main>
+        <Hero />
+        <Features />
+        <Steps />
+        <Testimonials />
+        <CTA />
+      </main>
+      <Footer />
+    </>
+  );
 }

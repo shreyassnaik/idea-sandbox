@@ -1566,3 +1566,8 @@ body.admin-body {
   color: var(--text-muted);
   padding: 20px 0;
 }
+
+/* --- New Admin Dashboard Layout Style --- */
+.admin-leaderboard-section {
+  margin-top: 40px;
+}

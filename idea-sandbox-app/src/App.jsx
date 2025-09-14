@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 
 // User-facing pages
 import Home from "./pages/Home";
+import UserDashboard from './pages/UserDashboard';
 import SubmitIdea from "./pages/SubmitIdea";
 import Success from './pages/Success';
 import IdeaHistory from './pages/IdeaHistory';
@@ -29,6 +30,9 @@ export default function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/success" element={<Success />} />
+        
+        {/* Protected Routes */}
+        <Route path="/dashboard" element={<ProtectedRoute><UserDashboard /></ProtectedRoute>} />
         <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
         <Route path="/submit" element={<ProtectedRoute><SubmitIdea /></ProtectedRoute>} />
         <Route path="/history" element={<ProtectedRoute><IdeaHistory /></ProtectedRoute>} />

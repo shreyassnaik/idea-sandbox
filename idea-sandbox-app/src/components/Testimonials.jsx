@@ -11,7 +11,7 @@ export default function Testimonials() {
             intelligence of the workforce and make employees feel more engaged
             in the company's future."
           </p>
-          <p className="author">- Shreyas Naik, Idea Sandbox</p>
+          <p className="author">- Shreyas Naik, Founder/Creator</p>
         </div>
       </div>
     </section>

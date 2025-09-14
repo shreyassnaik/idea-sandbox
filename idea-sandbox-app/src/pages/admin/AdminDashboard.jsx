@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useAuth } from '../../context/AuthContext';
+import Leaderboard from '../../components/dashboard/Leaderboard';
 
 // Helper function to get the mock user database from localStorage
 const getUserDatabase = () => {
@@ -7,7 +9,10 @@ const getUserDatabase = () => {
 };
 
 export default function AdminDashboard() {
+  const { user } = useAuth();
   const [stats, setStats] = useState({ ideaCount: 0, userCount: 0 });
+  const [allUsers, setAllUsers] = useState([]);
+  const [allIdeas, setAllIdeas] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -21,6 +26,9 @@ export default function AdminDashboard() {
           ideaCount: ideasData.length,
           userCount: usersData.length,
         });
+        setAllIdeas(ideasData);
+        setAllUsers(usersData);
+
       } catch (error) {
         console.error("Failed to fetch stats:", error);
       } finally {
@@ -33,6 +41,7 @@ export default function AdminDashboard() {
   return (
     <div className="admin-page">
       <h1 className="admin-page-title">Dashboard</h1>
+      
       <div className="dashboard-stats-grid">
         <div className="stat-card">
           <h3 className="stat-card-title">Total Users</h3>
@@ -42,10 +51,14 @@ export default function AdminDashboard() {
           <h3 className="stat-card-title">Total Ideas</h3>
           <p className="stat-card-value">{loading ? '...' : stats.ideaCount}</p>
         </div>
-        <div className="stat-card">
-          <h3 className="stat-card-title">Leaderboard</h3>
-          <p className="stat-card-value">Coming Soon</p>
-        </div>
+      </div>
+
+      <div className="admin-leaderboard-section">
+        {loading ? (
+          <p>Loading leaderboard...</p>
+        ) : (
+          <Leaderboard users={allUsers} ideas={allIdeas} currentUser={user} />
+        )}
       </div>
     </div>
   );
