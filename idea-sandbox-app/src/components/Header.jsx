@@ -42,7 +42,7 @@ export default function Header() {
             <li><a href="/#how-it-works">How It Works</a></li>
 
             {user ? (
-              // --- Dropdown for Logged-in Users ---
+              // --- Logged-in User View ---
               <>
                 <li className="profile-dropdown" ref={dropdownRef}>
                   <button onClick={() => setDropdownOpen(!dropdownOpen)} className="profile-btn">
@@ -51,18 +51,27 @@ export default function Header() {
                   </button>
                   {dropdownOpen && (
                     <ul className="dropdown-menu">
-                      {/* --- ADD THIS NEW LINK FOR ADMINS --- */}
+                      {/* --- THIS LINK IS ONLY FOR ADMINS --- */}
                       {user.role === 'admin' && (
                         <li><Link to="/admin" onClick={() => setDropdownOpen(false)}>Admin Panel</Link></li>
                       )}
                       <li><Link to="/profile" onClick={() => setDropdownOpen(false)}>My Profile</Link></li>
-                      <li><Link to="/history" onClick={() => setDropdownOpen(false)}>My Ideas</Link></li>
+                      
+                      {/* --- THIS LINK IS NOW HIDDEN FOR ADMINS --- */}
+                      {user.role !== 'admin' && (
+                        <li><Link to="/history" onClick={() => setDropdownOpen(false)}>My Ideas</Link></li>
+                      )}
+
                       <li><hr/></li>
                       <li><button onClick={logout} className="dropdown-logout">Log Out</button></li>
                     </ul>
                   )}
                 </li>
-                <li><Link to="/submit" className="nav-cta">Submit Idea</Link></li>
+                
+                {/* --- THIS BUTTON IS NOW HIDDEN FOR ADMINS --- */}
+                {user.role !== 'admin' && (
+                  <li><Link to="/submit" className="nav-cta">Submit Idea</Link></li>
+                )}
               </>
             ) : (
               // --- Links for Logged-out Users ---

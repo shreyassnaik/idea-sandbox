@@ -372,6 +372,13 @@ body {
   gap: 15px;
 }
 
+.hero-subheading {
+  font-size: 1.5rem;
+  font-weight: 100; /* Lighter than the main heading */
+  color: var(--text-light); /* The correct white color */
+  margin-bottom: 30px;
+}
+
 /* Features Section */
 .features {
 }
@@ -1214,7 +1221,7 @@ body {
   background-color: rgba(140, 153, 247, 0.2); /* secondary color transparent */
   color: var(--secondary-color);
 }
-.status-under.review { /* Handles "Under Review" */
+.status-under-review { /* More stable class name */
   background-color: rgba(255, 165, 0, 0.2); /* Orange transparent */
   color: orange;
 }
@@ -1364,4 +1371,198 @@ body {
   padding: 8px 12px;
   border-radius: 5px;
   cursor: pointer;
+}
+
+/* --- New Style for Status on User Page --- */
+.idea-status-display {
+  margin-top: 20px;
+  text-align: left;
+}
+
+/* --- Admin-specific Body Style Override --- */
+body.admin-body {
+  padding-top: 0;
+}
+
+/* --- New User Dashboard Styles --- */
+.dashboard-title {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.dashboard-subtitle {
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  margin-bottom: 40px;
+}
+
+.idea-feed {
+  display: grid;
+  gap: 30px;
+}
+
+/* --- New Idea Card Styles --- */
+.idea-card {
+  background: var(--bg-dark-secondary);
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.idea-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.idea-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.idea-card-title {
+  font-size: 1.4rem;
+  color: var(--text-light);
+  margin: 0;
+}
+
+.idea-card-description {
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.6;
+  flex-grow: 1; /* Allows footer to stick to bottom */
+}
+
+.idea-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--glass-border);
+  font-size: 0.9rem;
+}
+
+.idea-card-author {
+  color: var(--text-muted);
+  text-transform: capitalize;
+}
+
+.idea-card-actions {
+  display: flex;
+  gap: 20px;
+  color: var(--text-muted);
+}
+
+/* --- New Personalized Dashboard Styles --- */
+
+/* Widget Titles & Links */
+.widget-title {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: var(--text-light);
+}
+.widget-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.widget-link {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+.widget-link:hover {
+  color: var(--primary-color);
+}
+
+/* Dashboard Layout */
+.dashboard-layout {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 40px;
+}
+
+/* Stats Cards */
+/* We can reuse the admin stat card styles */
+.dashboard-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-top: 20px;
+}
+
+/* Recent Ideas Widget */
+.recent-ideas-card, .leaderboard-card {
+  background: var(--bg-dark-secondary);
+  padding: 30px;
+  border-radius: 10px;
+  border: 1px solid var(--glass-border);
+}
+.recent-ideas-list {
+  list-style: none;
+}
+.recent-ideas-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--glass-border);
+}
+.recent-ideas-list li:last-child {
+  border-bottom: none;
+}
+.recent-ideas-list .idea-title {
+  color: var(--text-light);
+}
+
+/* Leaderboard Chart */
+.leaderboard-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.leaderboard-list li {
+  display: grid;
+  grid-template-columns: 30px 1fr 120px 30px;
+  gap: 15px;
+  align-items: center;
+  font-size: 0.9rem;
+}
+.leaderboard-list li.current-user .leaderboard-name {
+  color: var(--primary-color);
+  font-weight: bold;
+}
+.leaderboard-rank {
+  color: var(--text-muted);
+}
+.leaderboard-bar-container {
+  background: var(--glass-bg);
+  border-radius: 5px;
+  height: 10px;
+}
+.leaderboard-bar {
+  background-color: var(--secondary-color);
+  height: 100%;
+  border-radius: 5px;
+  transition: width 0.5s ease-out;
+}
+.leaderboard-list li.current-user .leaderboard-bar {
+  background-color: var(--primary-color);
+}
+.leaderboard-score {
+  font-weight: bold;
+  text-align: right;
+}
+
+.no-ideas-message {
+  color: var(--text-muted);
+  padding: 20px 0;
 }

@@ -69,7 +69,7 @@ export default function AdminIdeas() { // Renamed component
                   <td>{idea.userId.replace('user_', '')}</td>
                   <td>{new Date(idea.timestamp).toLocaleDateString()}</td>
                   <td>
-                    <span className={`status-badge status-${(idea.status || 'submitted').toLowerCase().replace(' ','.')}`}>
+                    <span className={`status-badge status-${(idea.status || 'submitted').toLowerCase().replace(' ', '-')}`}>
                       {idea.status || 'Submitted'}
                     </span>
                   </td>

@@ -35,24 +35,27 @@ export default function AdminUsers() {
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody>
+            <tbody>
             {users.map(u => (
-              <tr key={u.id}>
+                <tr key={u.id}>
                 <td>{u.name}</td>
                 <td>{u.email}</td>
                 <td>
-                  <span className={`status-badge status-${u.role}`}>
+                    <span className={`status-badge status-${u.role}`}>
                     {u.role}
-                  </span>
+                    </span>
                 </td>
                 <td>
-                  <button onClick={() => handleDelete(u.id)} className="btn-delete-user">
-                    Delete Account
-                  </button>
+                    {/* --- This condition hides the button for other admins --- */}
+                    {u.role !== 'admin' && (
+                    <button onClick={() => handleDelete(u.id)} className="btn-delete-user">
+                        Delete Account
+                    </button>
+                    )}
                 </td>
-              </tr>
+                </tr>
             ))}
-          </tbody>
+            </tbody>
         </table>
       </div>
     </div>

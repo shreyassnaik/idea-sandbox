@@ -1,28 +1,12 @@
-import React from "react";
-import Header from "../components/Header";
-import Hero from "../components/Hero";
-import Features from "../components/Features";
-import Steps from "../components/Steps";
-import Testimonials from "../components/Testimonials";
-import CTA from "../components/CTA";
-import Footer from "../components/Footer";
-import useScrollAnimations from "../hooks/useScrollAnimations";
+import React from 'react';
+import { useAuth } from '../context/AuthContext';
+import StaticHomePage from './StaticHomePage';
+import UserDashboard from './UserDashboard';
 
 export default function Home() {
-  // hook to enable on-scroll animations (port of scripts.js behavior)
-  useScrollAnimations();
+  const { user } = useAuth();
 
-  return (
-    <>
-      <Header />
-      <main>
-        <Hero />
-        <Features />
-        <Steps />
-        <Testimonials />
-        <CTA />
-      </main>
-      <Footer />
-    </>
-  );
+  // If a user is logged in, show the dashboard.
+  // Otherwise, show the static landing page.
+  return user ? <UserDashboard /> : <StaticHomePage />;
 }

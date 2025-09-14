@@ -10,7 +10,6 @@ export default function IdeaHistory() {
   const { user } = useAuth();
 
   useEffect(() => {
-    // This guard clause prevents the fetch from running if the user is not logged in
     if (!user) {
       setLoading(false);
       return;
@@ -18,21 +17,14 @@ export default function IdeaHistory() {
 
     const fetchIdeas = async () => {
       try {
-        // This is the safe place for the debugging log
-        console.log("IdeaHistory: Fetching ideas for user ID:", user.id);
-
         const response = await fetch(
           `http://localhost:5000/ideas?userId=${user.id}`
         );
-
         if (!response.ok) {
           throw new Error('Failed to fetch ideas. Is the mock API server running?');
         }
-
         const data = await response.json();
-        data.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-        setIdeas(data);
-
+        setIdeas(data.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)));
       } catch (err) {
         setError(err.message);
         console.error("Error fetching ideas:", err);
@@ -42,7 +34,7 @@ export default function IdeaHistory() {
     };
 
     fetchIdeas();
-  }, [user]); // This effect re-runs whenever the user changes
+  }, [user]);
 
   const handleDelete = async (ideaId) => {
     const originalIdeas = [...ideas];
@@ -67,7 +59,6 @@ export default function IdeaHistory() {
             {user?.role === 'admin' ? 'Admin View: My Submissions' : 'My Past Submissions'}
           </h2>
 
-          {/* --- New, Stable Render Logic --- */}
           {loading && <p className="text-center">Loading your ideas...</p>}
           
           {error && <p className="text-center" style={{ color: '#e0002f' }}>Error: {error}</p>}
@@ -87,6 +78,11 @@ export default function IdeaHistory() {
                   <div className="idea-tags" style={{ marginTop: '15px' }}>
                     {(idea.tags || []).map((tag, index) => tag && <span key={index} className="tag">{tag}</span>)}
                   </div>
+                  <div className="idea-status-display">
+                    <span className={`status-badge status-${(idea.status || 'submitted').toLowerCase().replace(' ', '-')}`}>
+                      {idea.status || 'Submitted'}
+                    </span>
+                  </div>
                   <p className="idea-timestamp" style={{ fontSize: '0.9rem', color: 'var(--text-muted)', marginTop: '15px' }}>
                     Submitted on:{" "}
                     {idea.timestamp ? new Date(idea.timestamp).toLocaleDateString() : "N/A"}
@@ -98,8 +94,6 @@ export default function IdeaHistory() {
               ))}
             </div>
           )}
-          {/* ----------------------------- */}
-
         </div>
       </section>
       <Footer />

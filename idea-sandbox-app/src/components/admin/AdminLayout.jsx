@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react'; // 1. Import useEffect
 import { Outlet, Link, NavLink } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
 export default function AdminLayout() {
   const { logout } = useAuth();
+
+  // 2. This effect adds a class to the <body> tag when the component mounts
+  //    and removes it when it unmounts.
+  useEffect(() => {
+    document.body.classList.add('admin-body');
+    return () => {
+      document.body.classList.remove('admin-body');
+    };
+  }, []); // The empty array ensures this runs only once on mount and unmount
 
   return (
     <div className="admin-layout">
